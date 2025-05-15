@@ -1,0 +1,9 @@
+.app-root {
+  display: flex;
+  gap: 5rem;
+}
+
+.character-intake input,
+.character-intake label {
+  display: block;
+}
