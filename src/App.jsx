@@ -51,6 +51,9 @@ function App() {
         suffixTitle={displaySuffixTitle}
         species={displaySpecies}
         playerClass={displayClass}
+        skills={displaySkills}
+        keyEvents={displayKeyEvents}
+        backstory={displayBackstory}
       />
     </div>
   );
@@ -106,6 +109,36 @@ function CharacterIntakeForm({
       <label htmlFor="suffix">Title (suffix)</label>
       <input id="suffix" onChange={changeHandler(setSuffixTitle)} />
       <br />
+      <label htmlFor="species">Species</label>
+      <select id="species" required onChange={changeHandler(setSpecies)}>
+        <option value=""></option>
+        <option value="Redwood">Redwood</option>
+        <option value="Live Oak">Live Oak</option>
+        <option value="Ent">Ent</option>
+        <option value="Tree">Tree (unspecified)</option>
+        <option value="Dwarf">Dwarf</option>
+        <option value="Halfling">Halfling</option>
+        <option value="Human">Human</option>
+        <option value="Elf">Elf</option>
+      </select>
+      <br />
+      <label htmlFor="class">Class</label>
+      <select id="class" required onChange={changeHandler(setPlayerClass)}>
+        <option value=""></option>
+        <option value="Warrior">Warrior</option>
+        <option value="Monk">Monk</option>
+        <option value="Scholar">Scholar</option>
+        <option value="Rogue">Rogue</option>
+        <option value="Druid">Druid</option>
+        <option value="Hunter">Hunter</option>
+      </select>
+      <br />
+      <label htmlFor="backstory">Backstory</label>
+      <textarea
+        id="backstory"
+        cols="50"
+        onChange={changeHandler(setBackstory)}
+      />
       <br />
       <button>Submit</button>
     </form>
@@ -124,14 +157,16 @@ function CharacterInfo({
 }) {
   return (
     <div className="character-info">
-      <p>
+      <p className="displayNameTitle">
         {prefixTitle}
         {" " + name + " "}
         {suffixTitle}
       </p>
-      <p>
+      <p className="displaySpeciesClass">
         {species} {playerClass}
       </p>
+      <p>Backstory</p>
+      <p className="character-text-box">{backstory}</p>
     </div>
   );
 }

@@ -3,7 +3,44 @@
   gap: 5rem;
 }
 
-.character-intake input,
-.character-intake label {
+input,
+label,
+select,
+textarea {
   display: block;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.character-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.character-info p {
+  margin-top: 0.5rem;
+}
+
+.displayNameTitle {
+  margin-bottom: 0;
+}
+.displaySpeciesClass {
+  margin-top: 0;
+}
+
+.displayNameTitle,
+.displaySpeciesClass {
+  align-self: center;
+}
+
+.character-text-box {
+  background-color: rgb(255, 239, 218);
+  margin-left: 3rem;
+  padding: 1rem;
+  border-radius: 8px;
+  color: rgb(87, 87, 87);
+  width: 30rem;
 }
