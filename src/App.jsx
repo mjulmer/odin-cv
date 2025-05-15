@@ -165,8 +165,16 @@ function CharacterInfo({
       <p className="displaySpeciesClass">
         {species} {playerClass}
       </p>
-      <p>Backstory</p>
-      <p className="character-text-box">{backstory}</p>
+      <>
+        {backstory ? (
+          <>
+            <p>Backstory</p>
+            <p className="character-text-box">{backstory}</p>
+          </>
+        ) : (
+          <></>
+        )}
+      </>
     </div>
   );
 }

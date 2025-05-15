@@ -1,6 +1,7 @@
 .app-root {
-  display: flex;
+  display: grid;
   gap: 5rem;
+  grid-template-columns: 1fr 2fr;
 }
 
 input,
