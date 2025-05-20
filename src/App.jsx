@@ -99,8 +99,24 @@ function CharacterIntakeForm({
     return (event) => setter(event.target.value);
   }
 
+  function addButtonHandler() {
+    setKeyEvents(keyEvents.concat(new KeyEvent()));
+  }
+
+  function removeButtonHandler(clickEvent) {
+    setKeyEvents(
+      keyEvents.filter(
+        (keyEvent) => keyEvent.id !== clickEvent.target.getAttribute("data-id")
+      )
+    );
+  }
+
   const keyEventDivs = keyEvents.map((event) => (
-    <CharacterMajorEventInput key={event.id} eventId={event.id} />
+    <CharacterMajorEventInput
+      key={event.id}
+      eventId={event.id}
+      removeButtonHandler={removeButtonHandler}
+    />
   ));
 
   // TODO: appropriately mark required fields
@@ -160,7 +176,11 @@ function CharacterIntakeForm({
       />
       <div className="key-events-header">
         <p className="key-events-title">Key events</p>
-        <button className="new-event-button" type="button">
+        <button
+          className="new-event-button"
+          type="button"
+          onClick={addButtonHandler}
+        >
           Add another
         </button>
       </div>
@@ -171,7 +191,7 @@ function CharacterIntakeForm({
   );
 }
 
-function CharacterMajorEventInput({ eventId }) {
+function CharacterMajorEventInput({ eventId, removeButtonHandler }) {
   return (
     <div>
       <label htmlFor={"event-title" + eventId}>Event name</label>
@@ -180,7 +200,12 @@ function CharacterMajorEventInput({ eventId }) {
         name={"event-title" + eventId}
         id={"event-title" + eventId}
       />
-      <button className="new-event-button" type="button">
+      <button
+        className="new-event-button"
+        data-id={eventId}
+        type="button"
+        onClick={removeButtonHandler}
+      >
         Remove
       </button>
       <label htmlFor={"start-date" + eventId}>Start date</label>
