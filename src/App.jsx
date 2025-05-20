@@ -128,6 +128,7 @@ function CharacterIntakeForm({
       setEventProperty={setEventProperty}
     />
   ));
+  console.log(keyEvents);
 
   // TODO: appropriately mark required fields
   return (
@@ -207,16 +208,15 @@ function CharacterMajorEventInput({
   setEventProperty,
 }) {
   return (
-    <div>
+    <div data-id={eventId}>
       <label htmlFor={"event-title" + eventId}>Event name</label>
       <input
         type="text"
         name={"event-title" + eventId}
         id={"event-title" + eventId}
-        data-id={eventId}
         onChange={(event) =>
           setEventProperty(
-            event.target.getAttribute("data-id"),
+            event.target.parentElement.getAttribute("data-id"),
             "name",
             event.target.value
           )
@@ -231,14 +231,41 @@ function CharacterMajorEventInput({
         Remove
       </button>
       <label htmlFor={"start-date" + eventId}>Start date</label>
-      <input type="date" id={"start-date" + eventId}></input>
+      <input
+        type="date"
+        id={"start-date" + eventId}
+        onChange={(event) =>
+          setEventProperty(
+            event.target.parentElement.getAttribute("data-id"),
+            "startDate",
+            event.target.value
+          )
+        }
+      ></input>
       <label htmlFor={"end-date" + eventId}>End date</label>
-      <input type="date" id={"end-date" + eventId}></input>
+      <input
+        type="date"
+        id={"end-date" + eventId}
+        onChange={(event) =>
+          setEventProperty(
+            event.target.parentElement.getAttribute("data-id"),
+            "endDate",
+            event.target.value
+          )
+        }
+      ></input>
       <label htmlFor={"event-desc-" + eventId}>Event description</label>
       <textarea
         name={"event-desc-" + eventId}
         id={"event-desc-" + eventId}
         cols="50"
+        onChange={(event) =>
+          setEventProperty(
+            event.target.parentElement.getAttribute("data-id"),
+            "description",
+            event.target.value
+          )
+        }
       ></textarea>
     </div>
   );
