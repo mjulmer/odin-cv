@@ -1,3 +1,8 @@
+/* :root {
+  color: gray;
+  background-color: black;
+} */
+
 .app-root {
   display: grid;
   gap: 5rem;
@@ -15,7 +20,28 @@ textarea {
   resize: vertical;
 }
 
+.key-events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.key-events-title {
+  display: inline;
+}
+
+.new-event-button {
+  height: min-content;
+}
+
 .character-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner-display-container {
+  width: clamp(10rem, 40rem, 40rem);
   display: flex;
   flex-direction: column;
   justify-content: start;

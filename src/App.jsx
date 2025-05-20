@@ -13,6 +13,13 @@ function App() {
   const [displayKeyEvents, setDisplayKeyEvents] = useState([]);
   const [displayBackstory, setDisplayBackstory] = useState("");
 
+  // TODO display key events
+  // don't display key events when there aren't any
+  // TODO add ID to key events ->
+  // TODO add remove key event affordance
+  // TODO add date to key events -> date formatting
+  // TODO add skills section
+
   function setDisplayInfo(
     name = displayName,
     prefix = displayPrefixTitle,
@@ -69,6 +76,14 @@ function CharacterIntakeForm({
   setDisplayKeyEvents,
   setDisplayBackstory,
 }) {
+  function KeyEvent(name, startDate, endDate, description) {
+    this.id = crypto.randomUUID();
+    this.name = name;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.description = description;
+  }
+
   const [name, setName] = useState("");
   const [prefixTitle, setPrefixTitle] = useState("");
   const [suffixTitle, setSuffixTitle] = useState("");
@@ -76,13 +91,17 @@ function CharacterIntakeForm({
   const [playerClass, setPlayerClass] = useState("");
   const [species, setSpecies] = useState("");
 
-  const [skills, setSkills] = useState([]);
-  const [keyEvents, setKeyEvents] = useState([]);
+  const [skills, setSkills] = useState([undefined]);
+  const [keyEvents, setKeyEvents] = useState([new KeyEvent()]);
   const [backstory, setBackstory] = useState("");
 
   function changeHandler(setter) {
     return (event) => setter(event.target.value);
   }
+
+  const keyEventDivs = keyEvents.map((event) => (
+    <CharacterMajorEventInput key={event.id} eventId={event.id} />
+  ));
 
   // TODO: appropriately mark required fields
   return (
@@ -139,9 +158,42 @@ function CharacterIntakeForm({
         cols="50"
         onChange={changeHandler(setBackstory)}
       />
+      <div className="key-events-header">
+        <p className="key-events-title">Key events</p>
+        <button className="new-event-button" type="button">
+          Add another
+        </button>
+      </div>
+      <>{keyEventDivs}</>
       <br />
       <button>Submit</button>
     </form>
+  );
+}
+
+function CharacterMajorEventInput({ eventId }) {
+  return (
+    <div>
+      <label htmlFor={"event-title" + eventId}>Event name</label>
+      <input
+        type="text"
+        name={"event-title" + eventId}
+        id={"event-title" + eventId}
+      />
+      <button className="new-event-button" type="button">
+        Remove
+      </button>
+      <label htmlFor={"start-date" + eventId}>Start date</label>
+      <input type="date" id={"start-date" + eventId}></input>
+      <label htmlFor={"end-date" + eventId}>End date</label>
+      <input type="date" id={"end-date" + eventId}></input>
+      <label htmlFor={"event-desc-" + eventId}>Event description</label>
+      <textarea
+        name={"event-desc-" + eventId}
+        id={"event-desc-" + eventId}
+        cols="50"
+      ></textarea>
+    </div>
   );
 }
 
@@ -157,26 +209,38 @@ function CharacterInfo({
 }) {
   return (
     <div className="character-info">
-      <p className="displayNameTitle">
-        {prefixTitle}
-        {" " + name + " "}
-        {suffixTitle}
-      </p>
-      <p className="displaySpeciesClass">
-        {species} {playerClass}
-      </p>
-      <>
-        {backstory ? (
-          <>
-            <p>Backstory</p>
-            <p className="character-text-box">{backstory}</p>
-          </>
-        ) : (
-          <></>
-        )}
-      </>
+      <div className="inner-display-container">
+        <p className="displayNameTitle">
+          {prefixTitle}
+          {" " + name + " "}
+          {suffixTitle}
+        </p>
+        <p className="displaySpeciesClass">
+          {species} {playerClass}
+        </p>
+        <>
+          {backstory ? (
+            <>
+              <p>Backstory</p>
+              <p className="character-text-box">{backstory}</p>
+            </>
+          ) : null}
+        </>
+        <>
+          {keyEvents ? (
+            <>
+              <p>Key Events</p>
+              <KeyEventsDisplay keyEventsList={keyEvents}></KeyEventsDisplay>
+            </>
+          ) : null}
+        </>
+      </div>
     </div>
   );
+}
+
+function KeyEventsDisplay({ keyEventsList }) {
+  return <div></div>;
 }
 
 export default App;
