@@ -15,8 +15,6 @@ function App() {
 
   // TODO display key events
   // don't display key events when there aren't any
-  // TODO add ID to key events ->
-  // TODO add remove key event affordance
   // TODO add date to key events -> date formatting
   // TODO add skills section
 
@@ -111,11 +109,23 @@ function CharacterIntakeForm({
     );
   }
 
+  function setEventProperty(eventId, propertyToChange, newPropertyValue) {
+    setKeyEvents(
+      keyEvents.map((event) => {
+        if (event.id === eventId) {
+          event[propertyToChange] = newPropertyValue;
+        }
+        return event;
+      })
+    );
+  }
+
   const keyEventDivs = keyEvents.map((event) => (
     <CharacterMajorEventInput
       key={event.id}
       eventId={event.id}
       removeButtonHandler={removeButtonHandler}
+      setEventProperty={setEventProperty}
     />
   ));
 
@@ -191,7 +201,11 @@ function CharacterIntakeForm({
   );
 }
 
-function CharacterMajorEventInput({ eventId, removeButtonHandler }) {
+function CharacterMajorEventInput({
+  eventId,
+  removeButtonHandler,
+  setEventProperty,
+}) {
   return (
     <div>
       <label htmlFor={"event-title" + eventId}>Event name</label>
@@ -199,6 +213,14 @@ function CharacterMajorEventInput({ eventId, removeButtonHandler }) {
         type="text"
         name={"event-title" + eventId}
         id={"event-title" + eventId}
+        data-id={eventId}
+        onChange={(event) =>
+          setEventProperty(
+            event.target.getAttribute("data-id"),
+            "name",
+            event.target.value
+          )
+        }
       />
       <button
         className="new-event-button"
