@@ -13,9 +13,6 @@ function App() {
   const [displayKeyEvents, setDisplayKeyEvents] = useState([]);
   const [displayBackstory, setDisplayBackstory] = useState("");
 
-  // TODO display key events
-  // don't display key events when there aren't any
-  // TODO add date to key events -> date formatting
   // TODO add skills section
 
   function setDisplayInfo(
@@ -110,7 +107,6 @@ function CharacterIntakeForm({ setDisplayInfo }) {
       setEventProperty={setEventProperty}
     />
   ));
-  console.log(keyEvents);
 
   // TODO: appropriately mark required fields
   return (
@@ -192,7 +188,7 @@ function CharacterMajorEventInput({
   setEventProperty,
 }) {
   return (
-    <div data-id={eventId}>
+    <div className="keyEventsDivInput" data-id={eventId}>
       <label htmlFor={"event-title" + eventId}>Event name</label>
       <input
         type="text"
@@ -265,6 +261,9 @@ function CharacterInfo({
   keyEvents,
   backstory,
 }) {
+  const keyEventsDivsAndDisplayState = getKeyEventsDisplay(keyEvents);
+  const keyEventsDivs = keyEventsDivsAndDisplayState[0];
+  const shouldRenderEvents = keyEventsDivsAndDisplayState[1];
   return (
     <div className="character-info">
       <div className="inner-display-container">
@@ -285,10 +284,10 @@ function CharacterInfo({
           ) : null}
         </>
         <>
-          {keyEvents ? (
+          {shouldRenderEvents ? (
             <>
               <p>Key Events</p>
-              <KeyEventsDisplay keyEventsList={keyEvents}></KeyEventsDisplay>
+              {keyEventsDivs}
             </>
           ) : null}
         </>
@@ -297,8 +296,46 @@ function CharacterInfo({
   );
 }
 
-function KeyEventsDisplay({ keyEventsList }) {
-  return <div></div>;
+function getKeyEventsDisplay(keyEventsList) {
+  let shouldRenderEvents = false;
+  const keyEventsDiv = (
+    <div className="keyEventsDiv">
+      {keyEventsList.map((event) => {
+        if (!event.name && !event.description) {
+          return null;
+        }
+        shouldRenderEvents = true;
+        return (
+          <div key={event.id} className="character-text-box">
+            <p>{event.name}</p>
+            <DisplayKeyEventDate
+              startDate={event.startDate}
+              endDate={event.endDate}
+            />
+            <p>{event.description}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+  return [keyEventsDiv, shouldRenderEvents];
+}
+
+function DisplayKeyEventDate({ startDate, endDate }) {
+  if (!startDate && !endDate) {
+    return null;
+  }
+  if (startDate && endDate) {
+    return (
+      <p>
+        From {startDate.toString()} to {endDate.toString()}
+      </p>
+    );
+  }
+  if (startDate) {
+    return <p>{startDate.toString()}</p>;
+  }
+  return <p>{endDate.toString()}</p>;
 }
 
 export default App;

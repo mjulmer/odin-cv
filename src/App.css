@@ -65,9 +65,14 @@ textarea {
 
 .character-text-box {
   background-color: rgb(255, 239, 218);
-  margin-left: 3rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
   padding: 1rem;
   border-radius: 8px;
   color: rgb(87, 87, 87);
   width: 30rem;
+}
+
+.keyEventsDivInput {
+  margin-left: 2rem;
 }
