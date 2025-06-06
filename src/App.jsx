@@ -40,16 +40,7 @@ function App() {
 
   return (
     <div className="app-root">
-      <CharacterIntakeForm
-        setDisplayInfo={setDisplayInfo}
-        setDisplayPrefixTitle={setDisplayPrefixTitle}
-        setDisplaySuffixTitle={setDisplaySuffixTitle}
-        setDisplayClass={setDisplayClass}
-        setDisplaySpecies={setDisplaySpecies}
-        setDisplaySkills={setDisplaySkills}
-        setDisplayKeyEvents={setDisplayKeyEvents}
-        setDisplayBackstory={setDisplayBackstory}
-      />
+      <CharacterIntakeForm setDisplayInfo={setDisplayInfo} />
       <CharacterInfo
         prefixTitle={displayPrefixTitle}
         name={displayName}
@@ -64,16 +55,7 @@ function App() {
   );
 }
 
-function CharacterIntakeForm({
-  setDisplayInfo,
-  setDisplayPrefixTitle,
-  setDisplaySuffixTitle,
-  setDisplayClass,
-  setDisplaySpecies,
-  setDisplaySkills,
-  setDisplayKeyEvents,
-  setDisplayBackstory,
-}) {
+function CharacterIntakeForm({ setDisplayInfo }) {
   function KeyEvent(name, startDate, endDate, description) {
     this.id = crypto.randomUUID();
     this.name = name;
@@ -136,14 +118,16 @@ function CharacterIntakeForm({
       className="character-intake"
       onSubmit={(event) => {
         event.preventDefault();
-        setDisplayInfo(name);
-        setDisplayPrefixTitle(prefixTitle);
-        setDisplaySuffixTitle(suffixTitle);
-        setDisplayClass(playerClass);
-        setDisplaySpecies(species);
-        setDisplaySkills(skills);
-        setDisplayKeyEvents(keyEvents);
-        setDisplayBackstory(backstory);
+        setDisplayInfo(
+          name,
+          prefixTitle,
+          suffixTitle,
+          playerClass,
+          species,
+          skills,
+          keyEvents,
+          backstory
+        );
       }}
     >
       <label htmlFor="name">Name</label>
