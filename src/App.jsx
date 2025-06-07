@@ -82,11 +82,19 @@ function CharacterIntakeForm({ setDisplayInfo }) {
     setKeyEvents(keyEvents.concat(new KeyEvent()));
   }
 
+  function removeSkillButtonHandler(clickEvent) {
+    setSkills(
+      skills.filter(
+        (skill) =>
+          skill[0] !== clickEvent.target.parentElement.getAttribute("data-id")
+      )
+    );
+  }
+
   const skillDivs = skills.map((skill) => {
     return (
-      <div key={skill[0]} className="skillUnit" id={skill[0]}>
+      <div key={skill[0]} className="skillUnit" data-id={skill[0]}>
         <input
-          id={skill[0]}
           className="skill"
           onChange={changeHandler((value) =>
             setSkills(
@@ -99,12 +107,12 @@ function CharacterIntakeForm({ setDisplayInfo }) {
             )
           )}
         />
-        <button>Remove</button>
+        <button onClick={removeSkillButtonHandler}>Remove</button>
       </div>
     );
   });
 
-  function removeButtonHandler(clickEvent) {
+  function removeEventButtonHandler(clickEvent) {
     setKeyEvents(
       keyEvents.filter(
         (keyEvent) => keyEvent.id !== clickEvent.target.getAttribute("data-id")
@@ -127,7 +135,7 @@ function CharacterIntakeForm({ setDisplayInfo }) {
     <CharacterMajorEventInput
       key={event.id}
       eventId={event.id}
-      removeButtonHandler={removeButtonHandler}
+      removeButtonHandler={removeEventButtonHandler}
       setEventProperty={setEventProperty}
     />
   ));
