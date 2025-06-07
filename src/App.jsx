@@ -319,6 +319,7 @@ function CharacterInfo({
         <p className="displaySpeciesClass">
           {species} {playerClass}
         </p>
+        <DisplaySkills skills={skills} />
         <>
           {backstory ? (
             <>
@@ -336,6 +337,23 @@ function CharacterInfo({
           ) : null}
         </>
       </div>
+    </div>
+  );
+}
+
+function DisplaySkills({ skills }) {
+  return (
+    <div className="displaySkills">
+      {skills.map((skill) => {
+        if (!skill[1]) {
+          return null;
+        }
+        return (
+          <span key={skill[0]} className="skillBubble">
+            {skill[1]}
+          </span>
+        );
+      })}
     </div>
   );
 }

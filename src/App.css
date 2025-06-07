@@ -70,8 +70,25 @@ textarea {
 }
 
 .displayNameTitle,
-.displaySpeciesClass {
+.displaySpeciesClass,
+.displaySkills {
   align-self: center;
+}
+
+.displaySkills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 30rem;
+}
+
+.skillBubble {
+  background-color: rgb(255, 239, 218);
+  margin: 0 1rem 1rem 1rem;
+  padding: 0.25rem 1rem;
+  border-radius: 8px;
+  color: rgb(87, 87, 87);
+  width: fit-content;
 }
 
 .character-text-box {
