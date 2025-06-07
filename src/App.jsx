@@ -140,7 +140,6 @@ function CharacterIntakeForm({ setDisplayInfo }) {
     />
   ));
 
-  // TODO: appropriately mark required fields
   return (
     <form
       className="character-intake"
@@ -158,7 +157,12 @@ function CharacterIntakeForm({ setDisplayInfo }) {
         );
       }}
     >
-      <label htmlFor="name">Name</label>
+      <p>
+        Required fields are marked <span aria-label="required">*</span>
+      </p>
+      <label htmlFor="name">
+        Name <span aria-label="required">*</span>
+      </label>
       <input id="name" required onChange={changeHandler(setName)} />
       <br />
       <label htmlFor="prefix">Title (prefix)</label>
@@ -167,7 +171,9 @@ function CharacterIntakeForm({ setDisplayInfo }) {
       <label htmlFor="suffix">Title (suffix)</label>
       <input id="suffix" onChange={changeHandler(setSuffixTitle)} />
       <br />
-      <label htmlFor="species">Species</label>
+      <label htmlFor="species">
+        Species <span aria-label="required">*</span>
+      </label>
       <select id="species" required onChange={changeHandler(setSpecies)}>
         <option value=""></option>
         <option value="Redwood">Redwood</option>
@@ -180,7 +186,9 @@ function CharacterIntakeForm({ setDisplayInfo }) {
         <option value="Elf">Elf</option>
       </select>
       <br />
-      <label htmlFor="class">Class</label>
+      <label htmlFor="class">
+        Class <span aria-label="required">*</span>
+      </label>
       <select id="class" required onChange={changeHandler(setPlayerClass)}>
         <option value=""></option>
         <option value="Warrior">Warrior</option>
