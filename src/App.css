@@ -16,8 +16,19 @@ textarea {
   display: block;
 }
 
+.skills-title,
+.skill {
+  display: inline;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 textarea {
   resize: vertical;
+}
+
+.skills-header {
+  margin-bottom: 1rem;
 }
 
 .key-events-header {
@@ -73,6 +84,7 @@ textarea {
   width: 30rem;
 }
 
-.keyEventsDivInput {
+.keyEventsDivInput,
+.skillUnit {
   margin-left: 2rem;
 }

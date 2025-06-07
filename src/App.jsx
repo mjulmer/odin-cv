@@ -13,8 +13,6 @@ function App() {
   const [displayKeyEvents, setDisplayKeyEvents] = useState([]);
   const [displayBackstory, setDisplayBackstory] = useState("");
 
-  // TODO add skills section
-
   function setDisplayInfo(
     name = displayName,
     prefix = displayPrefixTitle,
@@ -68,7 +66,7 @@ function CharacterIntakeForm({ setDisplayInfo }) {
   const [playerClass, setPlayerClass] = useState("");
   const [species, setSpecies] = useState("");
 
-  const [skills, setSkills] = useState([undefined]);
+  const [skills, setSkills] = useState([[crypto.randomUUID(), ""]]);
   const [keyEvents, setKeyEvents] = useState([new KeyEvent()]);
   const [backstory, setBackstory] = useState("");
 
@@ -76,9 +74,35 @@ function CharacterIntakeForm({ setDisplayInfo }) {
     return (event) => setter(event.target.value);
   }
 
-  function addButtonHandler() {
+  function addSkillButtonHandler() {
+    setSkills([...skills, [crypto.randomUUID(), ""]]);
+  }
+
+  function addEventButtonHandler() {
     setKeyEvents(keyEvents.concat(new KeyEvent()));
   }
+
+  const skillDivs = skills.map((skill) => {
+    return (
+      <div key={skill[0]} className="skillUnit" id={skill[0]}>
+        <input
+          id={skill[0]}
+          className="skill"
+          onChange={changeHandler((value) =>
+            setSkills(
+              skills.map((innerMapSkill) => {
+                if (innerMapSkill[0] != skill[0]) {
+                  return innerMapSkill;
+                }
+                return [innerMapSkill[0], value];
+              })
+            )
+          )}
+        />
+        <button>Remove</button>
+      </div>
+    );
+  });
 
   function removeButtonHandler(clickEvent) {
     setKeyEvents(
@@ -159,6 +183,18 @@ function CharacterIntakeForm({ setDisplayInfo }) {
         <option value="Hunter">Hunter</option>
       </select>
       <br />
+      <div className="skills-header">
+        <p className="skills-title">Skills</p>
+        <button
+          className="new-skill-button"
+          type="button"
+          onClick={addSkillButtonHandler}
+        >
+          Add another
+        </button>
+      </div>
+      <>{skillDivs}</>
+      <br />
       <label htmlFor="backstory">Backstory</label>
       <textarea
         id="backstory"
@@ -170,7 +206,7 @@ function CharacterIntakeForm({ setDisplayInfo }) {
         <button
           className="new-event-button"
           type="button"
-          onClick={addButtonHandler}
+          onClick={addEventButtonHandler}
         >
           Add another
         </button>
